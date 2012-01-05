@@ -14,10 +14,14 @@
 # --------
 # In some template files, you can add the following markups.
 # 
+# ### source/_includes/custom/asides/tag_cloud.html ###
+# 
 #     <section>
 #       <h1>Tag Cloud</h1>
 #         <span id="tag-cloud">{% tag_cloud %}</span>
 #     </section>
+# 
+# ### source/_includes/custom/asides/category_list.html ###
 # 
 #     <section>
 #       <h1>Categories</h1>
@@ -37,7 +41,7 @@
 # 
 # [AUTHOR]: [tokkonopapa](http://tokkonopapa.github.com)
 # [MIT]: http://www.opensource.org/licenses/mit-license.php
-#
+# 
 module Jekyll
 
   class TagCloud < Liquid::Tag
@@ -45,6 +49,7 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
       @opts = nil
       if markup.strip =~ /\s*counter:(\w+)/i
+	    puts $1
         @opts = true
         markup = markup.strip.sub(/counter:\w+/i,'')
       end
