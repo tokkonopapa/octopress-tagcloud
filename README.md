@@ -10,7 +10,7 @@ Files:
 
     .
     ├─ plugins/
-    │  └── tag_cloud.rb
+    │  └── tag_cloud.rb
     └─ source/
        └─ _includes/
           └─ custom/
@@ -49,8 +49,6 @@ And also you can define styles for 'tag-cloud' or 'category-list' in a `.scss` f
 
 Licence:
 --------
-Copyright &copy; 2012 [tokkonopapa][AUTHOR].  
 Distributed under the [MIT License][MIT].
 
-[AUTHOR]: [tokkonopapa](http://tokkonopapa.github.com)
 [MIT]: http://www.opensource.org/licenses/mit-license.php
