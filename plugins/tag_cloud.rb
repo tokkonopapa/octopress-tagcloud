@@ -36,10 +36,8 @@
 # 
 # Licence:
 # --------
-# Copyright &copy; 2012 [tokkonopapa][AUTHOR].  
 # Distributed under the [MIT License][MIT].
 # 
-# [AUTHOR]: [tokkonopapa](http://tokkonopapa.github.com)
 # [MIT]: http://www.opensource.org/licenses/mit-license.php
 # 
 module Jekyll
