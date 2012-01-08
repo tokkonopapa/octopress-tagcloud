@@ -45,10 +45,9 @@ module Jekyll
   class TagCloud < Liquid::Tag
 
     def initialize(tag_name, markup, tokens)
-      @opts = nil
+      @opts = {}
       if markup.strip =~ /\s*counter:(\w+)/i
-	    puts $1
-        @opts = true
+        @opts['counter'] = $1
         markup = markup.strip.sub(/counter:\w+/i,'')
       end
       super
@@ -57,39 +56,35 @@ module Jekyll
     def render(context)
       lists = {}
       max, min = 1, 1
-      @config = context.registers[:site].config
-      @categories = context.registers[:site].categories
-      @categories.keys.sort_by{ |str| str.downcase }.each do |category|
-        count = @categories[category].count
+      config = context.registers[:site].config
+	  category_dir = config['root'] + config['category_dir'] + '/'
+      categories = context.registers[:site].categories
+      categories.keys.sort_by{ |str| str.downcase }.each do |category|
+        count = categories[category].count
         lists[category] = count
         max = count if count > max
       end
 
       html = ''
       lists.each do | category, counter |
-        url = get_category_url category
+        url = category_dir + category.gsub(/_|\P{Word}/, '-').gsub(/-{2,}/, '-').downcase
         style = "font-size: #{100 + (60 * Float(counter)/max)}%"
-        if @opts
-          html << "<a href='#{url}' style='#{style}'>#{category.capitalize}(#{@categories[category].count})</a>"
-        else
-          html << "<a href='#{url}' style='#{style}'>#{category.capitalize}</a>"
+        html << "<a href='#{url}' style='#{style}'>#{category.capitalize}"
+        if @opts['counter']
+          html << "(#{categories[category].count})"
         end
+        html << "</a> "
       end
-	  html
-    end
-
-    private
-    def get_category_url(category)
-      File.join @config['root'], @config['category_dir'], category.gsub(/_|\P{Word}/, '-').gsub(/-{2,}/, '-').downcase
+      html
     end
   end
 
   class CategoryList < Liquid::Tag
 
     def initialize(tag_name, markup, tokens)
-      @opts = nil
+      @opts = {}
       if markup.strip =~ /\s*counter:(\w+)/i
-        @opts = true
+        @opts['counter'] = $1
         markup = markup.strip.sub(/counter:\w+/i,'')
       end
       super
@@ -97,22 +92,18 @@ module Jekyll
 
     def render(context)
       html = ""
-      @config = context.registers[:site].config
-      @categories = context.registers[:site].categories
-      @categories.keys.sort_by{ |str| str.downcase }.each do |category|
-        url = get_category_url category
-        if @opts
-          html << "<li><a href='#{url}'>#{category.capitalize} (#{@categories[category].count})</a></li>"
-        else
-          html << "<li><a href='#{url}'>#{category.capitalize}</a></li>"
+      config = context.registers[:site].config
+	  category_dir = config['root'] + config['category_dir'] + '/'
+      categories = context.registers[:site].categories
+      categories.keys.sort_by{ |str| str.downcase }.each do |category|
+        url = category_dir + category.gsub(/_|\P{Word}/, '-').gsub(/-{2,}/, '-').downcase
+        html << "<li><a href='#{url}'>#{category.capitalize}"
+        if @opts['counter']
+          html << " (#{categories[category].count})"
         end
+        html << "</a></li>"
       end
-	  html
-    end
-
-    private
-    def get_category_url(category)
-      File.join @config['root'], @config['category_dir'], category.gsub(/_|\P{Word}/, '-').gsub(/-{2,}/, '-').downcase
+      html
     end
   end
 
