@@ -47,7 +47,7 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
       @opts = {}
       if markup.strip =~ /\s*counter:(\w+)/i
-        @opts['counter'] = $1
+        @opts['counter'] = ($1 == 'true')
         markup = markup.strip.sub(/counter:\w+/i,'')
       end
       super
@@ -84,7 +84,7 @@ module Jekyll
     def initialize(tag_name, markup, tokens)
       @opts = {}
       if markup.strip =~ /\s*counter:(\w+)/i
-        @opts['counter'] = $1
+        @opts['counter'] = ($1 == 'true')
         markup = markup.strip.sub(/counter:\w+/i,'')
       end
       super
