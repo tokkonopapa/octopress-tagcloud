@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # Tag Cloud for Octopress
 # =======================
 # 
