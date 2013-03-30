@@ -95,11 +95,10 @@ module Jekyll
     def render(context)
       html = ""
       config = context.registers[:site].config
-      category_dir = config['root'] + config['category_dir'] + '/'
+      category_dir = config['category_dir']
       categories = context.registers[:site].categories
       categories.keys.sort_by{ |str| str.downcase }.each do |category|
-        url = category_dir + category.gsub(/_|\P{Word}/, '-').gsub(/-{2,}/, '-').downcase
-        html << "<li><a href='#{url}'>#{category}"
+        html << "<li><a href='/#{category_dir}/#{category.to_url}/'>#{category}"
         if @opts['counter']
           html << " (#{categories[category].count})"
         end
