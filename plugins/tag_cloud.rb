@@ -42,6 +42,8 @@
 # 
 # [MIT]: http://www.opensource.org/licenses/mit-license.php
 # 
+require 'stringex'
+
 module Jekyll
 
   class TagCloud < Liquid::Tag
