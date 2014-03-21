@@ -61,7 +61,7 @@ module Jekyll
       lists = {}
       max, min = 1, 1
       config = context.registers[:site].config
-      category_dir = config['root'] + config['category_dir'] + '/'
+      category_dir = (config['root'] || config['baseurl'] || '/') + (config['category_dir'] || 'categories') + '/'
       categories = context.registers[:site].categories
       categories.keys.sort_by{ |str| str.downcase }.each do |category|
         count = categories[category].count
@@ -97,7 +97,7 @@ module Jekyll
     def render(context)
       html = ""
       config = context.registers[:site].config
-      category_dir = config['category_dir']
+      category_dir = config['category_dir'] || 'categories'
       categories = context.registers[:site].categories
       categories.keys.sort_by{ |str| str.downcase }.each do |category|
         html << "<li><a href='/#{category_dir}/#{category.to_url}/'>#{category}"
